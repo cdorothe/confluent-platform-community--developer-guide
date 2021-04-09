@@ -1,0 +1,17 @@
+[Unit]
+Description=Confluent Platform Rest Proxy API
+After=kafka.service
+StartLimitBurst=3
+StartLimitIntervalSec=25
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+Environment="PATH=/home/confluent/opt/jdk-15.0.2/bin:/home/confluent/opt/confluent-6.1.1/bin:/home/faucon/opt/confluent-hub-client/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+User=confluent
+ExecStart=/home/confluent/opt/confluent-6.1.1/bin/kafka-rest-start /home/confluent/opt/confluent-6.1.1/etc/myConfig/kafka-rest/kafka-rest.properties
+ExecStop=/home/confluent/opt/confluent-6.1.1/bin/kafka-rest-stop /home/confluent/opt/confluent-6.1.1/etc/myConfig/kafka-rest/kafka-rest.properties
+
+[Install]
+WantedBy=multi-user.target
