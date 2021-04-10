@@ -1,0 +1,16 @@
+[Unit]
+Description=Confluent Kafka Connect
+After=kafka.service
+StartLimitBurst=3
+StartLimitIntervalSec=25
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+Environment="PATH=/home/confluent/opt/jdk-15.0.2/bin:/home/confluent/opt/confluent-6.1.1/bin:/home/confluent/opt/confluent-hub-client/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+User=confluent
+ExecStart=/home/confluent/opt/confluent-6.1.1/bin/connect-distributed /home/confluent/opt/confluent-6.1.1/etc/myConfig/connect-distributed.properties
+
+[Install]
+WantedBy=multi-user.target
